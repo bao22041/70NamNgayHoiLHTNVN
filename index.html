@@ -3,34 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kỷ niệm 70 năm thành lập Hội LHTN Việt Nam ( 15/10/1956 - 15/10/2026 )</title>
+  <title>Kỷ niệm 70 năm thành lập Hội LHTN Việt Nam (15/10/1956 - 15/10/2026)</title>
   
   <!-- Supabase CDN Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Thư viện hiệu ứng pháo hoa bắn chúc mừng -->
+  <!-- Thư viện hiệu ứng pháo hoa chúc mừng -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Nhúng Ngân hàng 64 câu hỏi -->
   <script src="questions.js"></script>
-  <!-- Font chữ hiện đại Quicksand -->
+  <!-- Font chữ Quicksand chuẩn Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary-color: #3a86ff;
-      --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
-      --accent-pink: #ff70a6;
-      --accent-yellow: #ffd166;
-      --accent-green: #06d6a0;
+      --primary-color: #3b82f6;
+      --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --accent-pink: #ec4899;
+      --accent-amber: #f59e0b;
+      --accent-emerald: #10b981;
       --card-bg: rgba(255, 255, 255, 0.94);
-      --text-dark: #2b2d42;
+      --card-border: rgba(255, 255, 255, 0.85);
+      --text-dark: #1e293b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; }
 
     body {
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 45%, #7928ca 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 35%, #4c1d95 70%, #831843 100%);
       min-height: 100vh;
       color: var(--text-dark);
       display: flex;
@@ -56,70 +57,82 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 880px;
+      max-width: 860px;
     }
 
-    /* Container Glassmorphism */
+    /* Container Glassmorphism cao cấp */
     .card {
       background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 26px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      padding: 32px 26px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+      border: 1.5px solid var(--card-border);
+      padding: 34px 28px;
       margin-bottom: 24px;
-      animation: floatIn 0.6s ease-out;
+      animation: floatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes floatIn {
-      from { opacity: 0; transform: translateY(24px) scale(0.98); }
+      from { opacity: 0; transform: translateY(28px) scale(0.97); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     /* Header & Cute Logo */
-    .header { text-align: center; margin-bottom: 22px; }
+    .header { text-align: center; margin-bottom: 24px; }
     .logo-container {
       display: inline-flex;
       position: relative;
       align-items: center;
       justify-content: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
-    .logo-svg {
-      width: 96px;
-      height: 96px;
-      filter: drop-shadow(0 8px 16px rgba(67, 97, 238, 0.4));
-      animation: pulseLogo 3s infinite ease-in-out;
+    .logo-halo {
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(224,242,254,0.4) 65%, transparent 75%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+    .logo-img {
+      width: 86px;
+      height: 86px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(37, 99, 235, 0.35));
+      animation: pulseLogo 3.2s infinite ease-in-out;
     }
     @keyframes pulseLogo {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      50% { transform: scale(1.06); }
     }
     .sparkle-icon {
       position: absolute;
-      font-size: 22px;
-      animation: twinkle 1.5s infinite alternate;
+      font-size: 24px;
+      animation: twinkle 1.6s infinite alternate;
       user-select: none;
     }
-    .sparkle-top-right { top: -8px; right: -14px; }
-    .sparkle-bottom-left { bottom: -6px; left: -12px; animation-delay: 0.7s; }
+    .sparkle-top-right { top: -6px; right: -12px; }
+    .sparkle-bottom-left { bottom: -4px; left: -10px; animation-delay: 0.8s; }
 
     @keyframes twinkle {
-      0% { transform: scale(0.8) rotate(0deg); opacity: 0.6; }
-      100% { transform: scale(1.35) rotate(25deg); opacity: 1; }
+      0% { transform: scale(0.7) rotate(0deg); opacity: 0.5; }
+      100% { transform: scale(1.3) rotate(25deg); opacity: 1; }
     }
 
     .header h1 {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 800;
-      color: #1e3c72;
+      color: #1e3a8a;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 6px;
+      line-height: 1.35;
     }
     .header .subtitle {
-      font-size: 14px;
+      font-size: 14.5px;
       color: #64748b;
       font-weight: 600;
     }
@@ -130,14 +143,15 @@
       flex-wrap: wrap;
       justify-content: space-around;
       gap: 10px;
-      background: linear-gradient(135deg, #e0f2fe, #f3e8ff);
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
       border: 1.5px solid #c7d2fe;
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 12px 16px;
       margin-bottom: 24px;
       font-size: 13px;
       font-weight: 700;
       color: #3730a3;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
     }
     .meta-badge { display: flex; align-items: center; gap: 6px; }
 
@@ -147,10 +161,10 @@
       top: 12px;
       z-index: 10;
       background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      border-radius: 18px;
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
       padding: 12px 18px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -158,13 +172,13 @@
       border: 1.5px solid #e2e8f0;
     }
     .timer-badge {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      color: #e63946;
-      background: #ffe5ec;
+      color: #e11d48;
+      background: #ffe4e6;
       padding: 6px 14px;
       border-radius: 30px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -180,7 +194,7 @@
     }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #06d6a0, #3a86ff);
+      background: linear-gradient(90deg, #10b981, #3b82f6);
       width: 0%;
       transition: width 0.3s ease;
     }
@@ -199,85 +213,92 @@
     .palette-toggle-btn:hover { background: #e2e8f0; }
     .palette-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
-      gap: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 8px;
       margin-top: 12px;
-      padding: 10px;
+      padding: 12px;
       background: #f8fafc;
-      border-radius: 14px;
-      max-height: 180px;
-      overflow-y: auto;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
     }
     .palette-item {
-      height: 34px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #fff;
+      background: #ffffff;
       border: 1.5px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 12px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 700;
       color: #475569;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.15s;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .palette-item:hover {
+      transform: translateY(-2px);
+      border-color: #3b82f6;
+      color: #2563eb;
     }
     .palette-item.answered {
-      background: #06d6a0;
-      color: #fff;
+      background: #10b981;
+      color: #ffffff;
       border-color: #059669;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
     }
 
     /* Question Cards */
     .q-card {
       background: #ffffff;
-      border-radius: 18px;
-      padding: 18px 20px;
-      margin-bottom: 18px;
+      border-radius: 20px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
       border: 1.5px solid #eef2f6;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
     .q-card:hover {
-      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.09);
+      box-shadow: 0 8px 22px rgba(59, 130, 246, 0.08);
       border-color: #c7d2fe;
     }
     .q-header {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
     .q-badge {
       background: var(--primary-gradient);
-      color: #fff;
+      color: #ffffff;
       font-size: 12px;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
     }
     .q-title {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.5;
       color: #1e293b;
     }
 
-    /* Option Items */
+    /* Option Items - Nâng cấp kiểu dáng Card chọn */
     .option-label {
       display: flex;
-      align-items: flex-start;
-      padding: 10px 14px;
-      border-radius: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: 14px;
       border: 1.5px solid #e2e8f0;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       cursor: pointer;
       background: #fbfcfe;
-      transition: all 0.2s;
-      font-size: 14px;
+      transition: all 0.2s ease;
+      font-size: 14.5px;
       line-height: 1.4;
+      user-select: none;
     }
     .option-label:hover {
       background: #eff6ff;
@@ -285,41 +306,62 @@
       transform: translateX(4px);
     }
     .option-label input[type="radio"] {
-      margin-top: 3px;
-      margin-right: 10px;
-      accent-color: #4361ee;
-      transform: scale(1.2);
+      display: none;
+    }
+    .opt-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #64748b;
+      margin-right: 12px;
+      flex-shrink: 0;
+      background: #ffffff;
+      transition: all 0.2s ease;
     }
     .option-label.active {
       background: #e0e7ff;
       border-color: #4f46e5;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+    }
+    .option-label.active .opt-circle {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
     }
 
     /* Form Inputs */
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #334155; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 7px; color: #334155; }
     .form-input {
       width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
+      padding: 13px 18px;
+      border-radius: 14px;
       border: 2px solid #e2e8f0;
       font-size: 15px;
       transition: all 0.2s;
+      background: #ffffff;
     }
     .form-input:focus {
       outline: none;
-      border-color: #4361ee;
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
     /* Buttons */
     .btn {
       width: 100%;
-      padding: 14px 20px;
+      padding: 15px 22px;
       font-size: 16px;
       font-weight: 800;
-      border-radius: 16px;
+      border-radius: 18px;
       border: none;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -329,23 +371,23 @@
       gap: 8px;
     }
     .btn-gradient {
-      background: linear-gradient(135deg, #4361ee, #7209b7);
-      color: #fff;
-      box-shadow: 0 8px 20px rgba(114, 9, 183, 0.3);
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
     }
     .btn-gradient:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(114, 9, 183, 0.45);
+      box-shadow: 0 12px 28px rgba(124, 58, 237, 0.45);
     }
     .btn-submit {
-      background: linear-gradient(135deg, #06d6a0, #0096c7);
-      color: #fff;
-      box-shadow: 0 8px 20px rgba(6, 214, 160, 0.35);
+      background: linear-gradient(135deg, #10b981, #0284c7);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
       margin-top: 15px;
     }
     .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(6, 214, 160, 0.5);
+      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.45);
     }
 
     /* Result Showcase */
@@ -353,7 +395,7 @@
     .result-badge-score {
       font-size: 54px;
       font-weight: 900;
-      background: linear-gradient(135deg, #ff007f, #7928ca);
+      background: linear-gradient(135deg, #ec4899, #7c3aed);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 15px 0 5px;
@@ -362,25 +404,25 @@
       background: #f0fdf4;
       border: 1.5px dashed #86efac;
       padding: 18px;
-      border-radius: 16px;
+      border-radius: 18px;
       text-align: left;
       font-size: 13.5px;
       color: #166534;
-      margin-top: 20px;
+      margin-top: 22px;
       line-height: 1.6;
     }
 
     /* Admin Card */
     .admin-box {
       background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      border-radius: 22px;
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
       padding: 24px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
     }
-    .table-container { overflow-x: auto; margin-top: 15px; border-radius: 12px; }
+    .table-container { overflow-x: auto; margin-top: 15px; border-radius: 14px; }
     .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: center; min-width: 620px; }
-    .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 10px 8px; }
+    .admin-table th, .admin-table td { border: 1px solid #e2e8f0; padding: 11px 9px; }
     .admin-table th { background: #f8fafc; font-weight: 700; color: #334155; }
     .first-place { background: #fef9c3 !important; font-weight: bold; color: #854d0e; }
   </style>
@@ -397,11 +439,12 @@
         <div class="logo-container">
           <span class="sparkle-icon sparkle-top-right">✨</span>
           <span class="sparkle-icon sparkle-bottom-left">💖</span>
-          <!-- Logo chính thức Hội LHTN Việt Nam dạng SVG sắc nét -->
-          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Bi%E1%BB%83u_tr%C6%B0ng_H%E1%BB%99i_Li%C3%AAn_hi%E1%BB%87p_Thanh_ni%C3%AAn_Vi%E1%BB%87t_Nam.svg/1280px-Bi%E1%BB%83u_tr%C6%B0ng_H%E1%BB%99i_Li%C3%AAn_hi%E1%BB%87p_Thanh_ni%C3%AAn_Vi%E1%BB%87t_Nam.svg.png?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Logo LHTN VN" class="logo-svg" />
+          <div class="logo-halo">
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Bi%E1%BB%83u_tr%C6%B0ng_H%E1%BB%99i_Li%C3%AAn_hi%E1%BB%87p_Thanh_ni%C3%AAn_Vi%E1%BB%87t_Nam.svg/1280px-Bi%E1%BB%83u_tr%C6%B0ng_H%E1%BB%99i_Li%C3%AAn_hi%E1%BB%87p_Thanh_ni%C3%AAn_Vi%E1%BB%87t_Nam.svg.png?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Logo LHTN VN" class="logo-img" />
+          </div>
         </div>
         <h1>🌸 CUỘC THI TRẮC NGHIỆM TRỰC TUYẾN 🌸</h1>
-        <p class="subtitle">Kỷ niệm 70 năm thành lập Hội LHTN Việt Nam ( 15/10/1956 - 15/10/2026 ) </p>
+        <p class="subtitle">Kỷ niệm 70 năm thành lập Hội LHTN Việt Nam (15/10/1956 - 15/10/2026)</p>
       </div>
 
       <!-- THANH THÔNG TIN QUY CHẾ -->
@@ -421,11 +464,11 @@
           </div>
           <div class="form-group">
             <label for="phone">📱 Số điện thoại liên hệ (*):</label>
-            <input type="tel" id="phone" class="form-input" placeholder="Ví dụ: 09...678" required />
+            <input type="tel" id="phone" class="form-input" placeholder="Ví dụ: 0912345678" required />
           </div>
           <div class="form-group">
-            <label for="address">🏡 Địa chỉ:</label>
-            <input type="text" id="address" class="form-input" placeholder="Ví dụ: ... Phường Cẩm Lệ, tp Đà Nẵng" required />
+            <label for="address">🏡 Địa chỉ (*):</label>
+            <input type="text" id="address" class="form-input" placeholder="Ví dụ: Phường Hoà Thọ Đông, Quận Cẩm Lệ, TP Đà Nẵng" required />
           </div>
           <button type="submit" class="btn btn-gradient">
             <span>🚀</span> BẮT ĐẦU VÀO PHÒNG THI NGAY
@@ -433,13 +476,13 @@
         </form>
       </div>
 
-      <!-- GIAO DIỆN 2: LÀM BÀI 64 CÂU HỎI -->
+      <!-- GIAO DIỆN 2: LÀM BÀI 20 CÂU HỎI -->
       <div id="screen-quiz" style="display: none;">
         <!-- Thanh Sticky ghim thời gian và tiến độ -->
         <div class="sticky-header">
           <div>
             <div style="font-size: 13px; font-weight: 700; color: #475569;" id="candidate-tag">Thí sinh: ---</div>
-            <div style="font-size: 12px; color: #059669; font-weight: 600;" id="answered-counter">Đã làm: 0/64 câu</div>
+            <div style="font-size: 12px; color: #059669; font-weight: 600;" id="answered-counter">Đã làm: 0/20 câu</div>
           </div>
           <div class="timer-badge" id="timer-display">
             <span>⏳</span> <span id="timer-digits">06:00</span>
@@ -450,7 +493,7 @@
           <div class="progress-fill" id="progress-bar"></div>
         </div>
 
-        <!-- Bảng điều hướng nhanh 64 câu -->
+        <!-- Bảng điều hướng nhanh 20 câu -->
         <div style="margin: 15px 0 20px;">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 13px; font-weight: 700; color: #334155;">📍 Bảng nhảy nhanh đến câu hỏi:</span>
@@ -459,7 +502,7 @@
           <div class="palette-grid" id="palette-container"></div>
         </div>
 
-        <!-- Danh sách hiển thị toàn bộ 64 câu -->
+        <!-- Danh sách hiển thị 20 câu ngẫu nhiên -->
         <form id="quiz-form" onsubmit="submitExam(event)">
           <div id="questions-list"></div>
 
@@ -473,10 +516,10 @@
       <div id="screen-result" style="display: none;">
         <div class="result-container">
           <div style="font-size: 52px; animation: pulseLogo 1.5s infinite;">🎉 🏆 🌟</div>
-          <h2 style="color: #1e3c72; margin-top: 10px;">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI THI!</h2>
-          <div class="result-badge-score" id="result-score">0 / 1280</div>
+          <h2 style="color: #1e3a8a; margin-top: 10px;">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI THI!</h2>
+          <div class="result-badge-score" id="result-score">0 / 1000</div>
           <p style="font-size: 16px; font-weight: 700; color: #475569;" id="result-time">Thời gian làm bài: 0 giây</p>
-          <p style="font-size: 14px; color: #64748b; margin-top: 4px;" id="result-ratio">Số câu trả lời đúng: 0/64 câu</p>
+          <p style="font-size: 14px; color: #64748b; margin-top: 4px;" id="result-ratio">Số câu trả lời đúng: 0/20 câu</p>
 
           <div class="cute-notice">
             🌱 <strong>Kết quả của bạn đã được ghi nhận:</strong><br/>
@@ -543,7 +586,7 @@
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
-    const PARTICLE_COUNT = 180; // Mật độ hạt dày đặc, lấp lánh lung linh
+    const PARTICLE_COUNT = 180;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -561,13 +604,12 @@
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2.8 + 0.8;
         this.speedX = (Math.random() - 0.5) * 0.45;
-        this.speedY = (Math.random() - 0.5) * 0.4 - 0.25; // Bay bồng bềnh nhẹ nhàng hướng lên
+        this.speedY = (Math.random() - 0.5) * 0.4 - 0.25;
         this.alpha = Math.random() * 0.7 + 0.3;
         this.colors = ['#ffd166', '#ff70a6', '#06d6a0', '#ffffff', '#a0c4ff', '#f3c4fb', '#fde2e4'];
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
         this.blinkSpeed = Math.random() * 0.025 + 0.01;
-        // 30% tỷ lệ là ngôi sao 4 cánh lấp lánh (sparkles), còn lại là hạt li ti phát sáng
-        this.isSparkle = Math.random() < 0.3;
+        this.isSparkle = Math.random() < 0.32;
       }
       update() {
         this.x += this.speedX;
@@ -590,7 +632,6 @@
         ctx.shadowColor = this.color;
 
         if (this.isSparkle) {
-          // Vẽ ngôi sao 4 cánh lấp lánh dễ thương
           const s = this.size * 2.2;
           ctx.beginPath();
           ctx.moveTo(this.x, this.y - s);
@@ -600,7 +641,6 @@
           ctx.quadraticCurveTo(this.x, this.y, this.x, this.y - s);
           ctx.fill();
         } else {
-          // Vẽ hạt tròn li ti phát sáng
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
           ctx.fill();
@@ -624,7 +664,7 @@
     animateParticles();
 
     /* =========================================================================
-       2. CẤU HÌNH SUPABASE CLIENT (Giữ nguyên thông tin kết nối thực tế)
+       2. CẤU HÌNH SUPABASE CLIENT
        ========================================================================= */
     const SUPABASE_URL = "https://mxopfshdshiebndnvutb.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14b3Bmc2hkc2hpZWJuZG52dXRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4NjYyODQsImV4cCI6MjEwNzQ0MjI4NH0.MXaJ6cTk7CmEG3kTV92clIPCk-C5KnQPXgaxAKidPDA";
@@ -637,7 +677,7 @@
     }
 
     /* =========================================================================
-       3. THUẬT TOÁN XÁO TRỘN FISHER-YATES (CHUẨN TOÁN HỌC KHÔNG BỊ TRÙNG LẶP)
+       3. THUẬT TOÁN XÁO TRỘN FISHER-YATES
        ========================================================================= */
     function shuffleArray(array) {
       const arr = [...array];
@@ -649,8 +689,12 @@
     }
 
     /* =========================================================================
-       4. LOGIC CUỘC THI: 64 CÂU TRONG 6 PHÚT
+       4. LOGIC CUỘC THI: 20 CÂU NGẪU NHIÊN TRONG 6 PHÚT
        ========================================================================= */
+    const TOTAL_EXAM_QUESTIONS = 20;   // Chỉ lấy 20 câu ngẫu nhiên từ 64 câu
+    const POINTS_PER_QUESTION = 50;     // 50 điểm / câu -> Tổng 1000 điểm
+    const MAX_SCORE = TOTAL_EXAM_QUESTIONS * POINTS_PER_QUESTION;
+
     let currentCandidate = {};
     let allExamQuestions = [];
     let timerInterval = null;
@@ -668,16 +712,14 @@
         startTime: new Date().toISOString()
       };
 
-      // Kiểm tra ngân hàng câu hỏi
       if (typeof QUESTION_BANK === 'undefined' || !Array.isArray(QUESTION_BANK) || QUESTION_BANK.length === 0) {
         alert("Không tìm thấy tệp questions.js hoặc danh sách câu hỏi trống!");
         return;
       }
 
-      // NÂNG CẤP XÁO TRỘN TOÀN DIỆN CHO TỪNG THÍ SINH RIÊNG BIỆT:
-      // 1. Đảo ngẫu nhiên thứ tự các câu hỏi bằng Fisher-Yates
-      // 2. Với mỗi câu hỏi, đảo ngẫu nhiên toàn bộ thứ tự các đáp án options
-      allExamQuestions = shuffleArray(QUESTION_BANK).map(q => ({
+      // XÁO TRỘN TOÀN BỘ VÀ LẤY ĐÚNG 20 CÂU NGẪU NHIÊN KHÔNG TRÙNG LẶP
+      const shuffledBank = shuffleArray(QUESTION_BANK);
+      allExamQuestions = shuffledBank.slice(0, TOTAL_EXAM_QUESTIONS).map(q => ({
         ...q,
         shuffledOptions: shuffleArray(q.options)
       }));
@@ -693,7 +735,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Bảng palette 64 câu
+    // Bảng palette 20 câu
     function renderPalette() {
       const pContainer = document.getElementById('palette-container');
       pContainer.innerHTML = '';
@@ -716,7 +758,7 @@
       p.style.display = p.style.display === 'none' ? 'grid' : 'none';
     }
 
-    // Render toàn bộ câu hỏi (sử dụng danh sách đáp án đã được tráo ngẫu nhiên riêng cho thí sinh)
+    // Render 20 câu hỏi giao diện mới
     function renderAllQuestions() {
       const container = document.getElementById('questions-list');
       container.innerHTML = '';
@@ -728,14 +770,15 @@
 
         qCard.innerHTML = `
           <div class="q-header">
-            <span class="q-badge">Câu ${index + 1}/64</span>
-            <div class="q-title">${escapeHtml(q.question)} <span style="color: #4361ee; font-weight: 700;">(20đ)</span></div>
+            <span class="q-badge">Câu ${index + 1}/${TOTAL_EXAM_QUESTIONS}</span>
+            <div class="q-title">${escapeHtml(q.question)} <span style="color: #3b82f6; font-weight: 700;">(${POINTS_PER_QUESTION}đ)</span></div>
           </div>
           <div class="options-group">
             ${q.shuffledOptions.map((opt, optIdx) => `
               <label class="option-label" onclick="markAnswered(${q.id}, this)">
                 <input type="radio" name="question_${q.id}" value="${escapeHtml(opt)}" />
-                <span><strong>${String.fromCharCode(65 + optIdx)}.</strong>${escapeHtml(opt)}</span>
+                <span class="opt-circle">${String.fromCharCode(65 + optIdx)}</span>
+                <span>${escapeHtml(opt)}</span>
               </label>
             `).join('')}
           </div>
@@ -759,8 +802,8 @@
       if (pItem) pItem.classList.add('answered');
 
       const answeredCount = Object.keys(answeredMap).length;
-      document.getElementById('answered-counter').innerText = `Đã làm: ${answeredCount}/64 câu`;
-      const percent = (answeredCount / 64) * 100;
+      document.getElementById('answered-counter').innerText = `Đã làm: ${answeredCount}/${TOTAL_EXAM_QUESTIONS} câu`;
+      const percent = (answeredCount / TOTAL_EXAM_QUESTIONS) * 100;
       document.getElementById('progress-bar').style.width = `${percent}%`;
     }
 
@@ -778,8 +821,8 @@
         document.getElementById('timer-digits').innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
 
         if (remaining <= 60) {
-          document.getElementById('timer-display').style.background = '#ffe5ec';
-          document.getElementById('timer-display').style.color = '#d90429';
+          document.getElementById('timer-display').style.background = '#ffe4e6';
+          document.getElementById('timer-display').style.color = '#e11d48';
         }
 
         if (remaining <= 0) {
@@ -831,8 +874,8 @@
         }
       });
 
-      // 1 câu = 20 điểm -> Tối đa 1280 điểm
-      const totalScore = correctCount * 20;
+      // 1 câu = 50 điểm -> Tối đa 1000 điểm
+      const totalScore = correctCount * POINTS_PER_QUESTION;
 
       const record = {
         fullName: currentCandidate.fullName,
@@ -840,7 +883,7 @@
         address: currentCandidate.address,
         score: totalScore,
         correctCount: correctCount,
-        totalQuestions: 64,
+        totalQuestions: TOTAL_EXAM_QUESTIONS,
         timeSpent: timeElapsed,
         submittedAt: new Date().toLocaleString('vi-VN')
       };
@@ -854,15 +897,15 @@
       // 3. Hiển thị màn hình kết quả và bắn pháo hoa
       document.getElementById('screen-quiz').style.display = 'none';
       document.getElementById('screen-result').style.display = 'block';
-      document.getElementById('result-score').innerText = `${totalScore} / 1280 Điểm`;
+      document.getElementById('result-score').innerText = `${totalScore} / ${MAX_SCORE} Điểm`;
       document.getElementById('result-time').innerText = `⏱️ Thời gian hoàn thành: ${timeElapsed} giây (${Math.floor(timeElapsed / 60)} phút ${timeElapsed % 60} giây)`;
-      document.getElementById('result-ratio').innerText = `🎯 Số câu trả lời đúng: ${correctCount}/64 câu (${Math.round((correctCount/64)*100)}%)`;
+      document.getElementById('result-ratio').innerText = `🎯 Số câu trả lời đúng: ${correctCount}/${TOTAL_EXAM_QUESTIONS} câu (${Math.round((correctCount/TOTAL_EXAM_QUESTIONS)*100)}%)`;
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       triggerConfetti();
     }
 
-    // Lưu vào Database Supabase theo schema mới của bảng candidates
+    // Lưu vào Database Supabase theo schema của bảng candidates
     async function saveToSupabase(r) {
       if (!supabaseClient) return;
       try {
@@ -947,7 +990,7 @@
           <td><strong>${escapeHtml(item.fullName)}</strong></td>
           <td>${escapeHtml(item.phone)}</td>
           <td>${escapeHtml(item.address)}</td>
-          <td><span style="color: #4361ee; font-weight: 800;">${item.score}</span>/1280</td>
+          <td><span style="color: #2563eb; font-weight: 800;">${item.score}</span>/${MAX_SCORE}</td>
           <td>${item.timeSpent}s</td>
           <td>${item.submittedAt}</td>
         `;
@@ -969,7 +1012,7 @@
         return;
       }
 
-      let csv = "\uFEFFXếp Hạng,Họ và Tên,Số Điện Thoại,Địa Chỉ,Điểm Số (Tối đa 1280),Thời Gian Hoàn Thành (Giây),Thời Gian Nộp Bài\n";
+      let csv = `\uFEFFXếp Hạng,Họ và Tên,Số Điện Thoại,Địa Chỉ,Điểm Số (Tối đa ${MAX_SCORE}),Thời Gian Hoàn Thành (Giây),Thời Gian Nộp Bài\n`;
       list.forEach((r, idx) => {
         csv += `${idx + 1},"${r.fullName}","${r.phone}","${r.address}",${r.score},${r.timeSpent},"${r.submittedAt}"\n`;
       });
