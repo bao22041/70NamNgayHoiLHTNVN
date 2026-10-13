@@ -7,7 +7,7 @@
   
   <!-- Supabase CDN Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Thư viện hiệu ứng pháo hoa chúc mừng -->
+  <!-- Thư viện hiệu ứng pháo hoa bắn chúc mừng -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Nhúng Ngân hàng 64 câu hỏi -->
   <script src="questions.js"></script>
@@ -78,7 +78,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Header & Cute Logo */
+    /* Header & Logo */
     .header { text-align: center; margin-bottom: 24px; }
     .logo-container {
       display: inline-flex;
@@ -285,7 +285,7 @@
       color: #1e293b;
     }
 
-    /* Option Items - Nâng cấp kiểu dáng Card chọn */
+    /* Option Items */
     .option-label {
       display: flex;
       align-items: center;
@@ -450,9 +450,9 @@
       <!-- THANH THÔNG TIN QUY CHẾ -->
       <div class="meta-bar">
         <div class="meta-badge"><span>📚</span> Câu hỏi thú vị</div>
-        <div class="meta-badge"><span>🎯</span> 🌸 </div>
-        <div class="meta-badge"><span>⏱️</span> Trong vòng 6 phút</div>
-        <div class="meta-badge"><span>🏆</span> Ưu tiên: Thiên Bảo &amp; 🌸</div>
+        <div class="meta-badge"><span>🎯</span> 🌸</div>
+        <div class="meta-badge"><span>⏱️</span> trong vòng 2 phút</div>
+        <div class="meta-badge"><span>🏆</span> Ưu tiên: Thiên Bảo &amp; 🌸 </div>
       </div>
 
       <!-- GIAO DIỆN 1: ĐIỀN THÔNG TIN THÍ SINH (3 TRƯỜNG: HỌ TÊN, SĐT, ĐỊA CHỈ) -->
@@ -485,7 +485,7 @@
             <div style="font-size: 12px; color: #059669; font-weight: 600;" id="answered-counter">Đã làm: 0/20 câu</div>
           </div>
           <div class="timer-badge" id="timer-display">
-            <span>⏳</span> <span id="timer-digits">06:00</span>
+            <span>⏳</span> <span id="timer-digits">02:00</span>
           </div>
         </div>
 
@@ -525,7 +525,7 @@
             🌱 <strong>Kết quả của bạn đã được ghi nhận:</strong><br/>
             • 🌟 Dữ liệu bài thi đã được đồng bộ an toàn lên hệ thống Database trực tuyến (Bảng <code>candidates</code>).<br/>
             • 🔒 Toàn bộ dữ liệu điểm số và xếp hạng được bảo mật tập trung cho Ban Giám Khảo.<br/>
-            • ✨ Chúc bạn đạt được thứ hạng xuất sắc trong hội thi lần này!
+            • ✨ Nếu làm nhiều lần, hệ thống sẽ tự động lưu giữ thành tích cao nhất của bạn!
           </div>
 
           <button onclick="window.location.reload()" class="btn btn-gradient" style="margin-top: 25px;">
@@ -553,7 +553,7 @@
           </button>
         </div>
         <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">
-          * Tiêu chuẩn xếp hạng: Thí sinh điểm cao nhất xếp trên, bằng điểm thì thời gian hoàn thành ít hơn (nhanh hơn) xếp trên.
+          * Tiêu chuẩn xếp hạng: Thí sinh điểm cao nhất xếp trên, bằng điểm thì thời gian nhanh hơn xếp trên. Tên trùng lặp được tự động gộp và giữ lại lượt thi tốt nhất.
         </p>
 
         <div class="table-container">
@@ -698,7 +698,7 @@
     let currentCandidate = {};
     let allExamQuestions = [];
     let timerInterval = null;
-    let totalTime = 360; // 6 phút = 360 giây
+    let totalTime = 120;  
     let timeElapsed = 0;
     let isSubmitted = false;
     const answeredMap = {};
@@ -717,7 +717,7 @@
         return;
       }
 
-      // XÁO TRỘN TOÀN BỘ VÀ LẤY ĐÚNG 20 CÂU NGẪU NHIÊN KHÔNG TRÙNG LẶP
+      // Xáo trộn và lấy đúng 20 câu ngẫu nhiên không trùng lặp
       const shuffledBank = shuffleArray(QUESTION_BANK);
       allExamQuestions = shuffledBank.slice(0, TOTAL_EXAM_QUESTIONS).map(q => ({
         ...q,
@@ -931,7 +931,7 @@
     }
 
     /* =========================================================================
-       5. KHU VỰC QUẢN TRỊ VIÊN & XUẤT TOÀN BỘ FILE BẰNG MẬT KHẨU
+       5. KHU VỰC QUẢN TRỊ VIÊN, XỬ LÝ LỌC TRÙNG TÊN & XUẤT FILE
        ========================================================================= */
     function toggleAdminPanel() {
       const p = document.getElementById('admin-panel-content');
@@ -939,6 +939,9 @@
     }
 
     async function getSortedCandidates() {
+      let rawList = [];
+
+      // 1. Lấy dữ liệu từ Supabase nếu có kết nối
       if (supabaseClient) {
         try {
           const { data, error } = await supabaseClient
@@ -948,7 +951,7 @@
             .order('duration_seconds', { ascending: true });
 
           if (!error && data && data.length > 0) {
-            return data.map(d => ({
+            rawList = data.map(d => ({
               fullName: d.full_name,
               phone: d.phone,
               address: d.address,
@@ -962,8 +965,39 @@
         }
       }
 
-      const local = JSON.parse(localStorage.getItem('quiz_candidates_data') || '[]');
-      return local.sort((a, b) => b.score - a.score || a.timeSpent - b.timeSpent);
+      // 2. Dự phòng lấy từ LocalStorage nếu Supabase trống
+      if (rawList.length === 0) {
+        rawList = JSON.parse(localStorage.getItem('quiz_candidates_data') || '[]');
+      }
+
+      // 3. THUẬT TOÁN LỌC TRÙNG TÊN THÍ SINH (DEDUPLICATION):
+      // Chuẩn hóa tên (bỏ khoảng trắng đầu/cuối, không phân biệt hoa thường)
+      // Chỉ giữ lại kết quả tốt nhất: Điểm cao nhất -> Nếu bằng điểm thì thời gian ít nhất
+      const bestCandidateMap = new Map();
+
+      rawList.forEach(item => {
+        if (!item.fullName) return;
+        const normalizedKey = item.fullName.trim().toLowerCase();
+
+        if (!bestCandidateMap.has(normalizedKey)) {
+          bestCandidateMap.set(normalizedKey, item);
+        } else {
+          const currentBest = bestCandidateMap.get(normalizedKey);
+          // Điều kiện thay thế thành tích tốt hơn:
+          // 1. Điểm mới cao hơn điểm cũ
+          // 2. Điểm bằng nhau nhưng thời gian làm bài mới ít hơn (nhanh hơn)
+          if (
+            item.score > currentBest.score ||
+            (item.score === currentBest.score && item.timeSpent < currentBest.timeSpent)
+          ) {
+            bestCandidateMap.set(normalizedKey, item);
+          }
+        }
+      });
+
+      // 4. Sắp xếp lại danh sách thí sinh duy nhất theo thứ hạng
+      const deduplicatedList = Array.from(bestCandidateMap.values());
+      return deduplicatedList.sort((a, b) => b.score - a.score || a.timeSpent - b.timeSpent);
     }
 
     async function loadRanking() {
@@ -998,7 +1032,7 @@
       });
     }
 
-    // CHỈ DÀNH CHO ADMIN: Xuất file danh sách toàn bộ thí sinh
+    // CHỈ DÀNH CHO ADMIN: Xuất file danh sách toàn bộ thí sinh (Đã lọc trùng tên)
     async function exportAllCandidatesToExcel() {
       const pass = document.getElementById('admin-pass').value;
       if (pass !== '22042004B@o') {
