@@ -400,6 +400,18 @@
       -webkit-text-fill-color: transparent;
       margin: 15px 0 5px;
     }
+    .wish-box {
+      background: linear-gradient(135deg, #fdf2f8 0%, #eef2ff 100%);
+      border: 2px solid #f9a8d4;
+      padding: 20px 22px;
+      border-radius: 20px;
+      margin: 18px 0 10px;
+      color: #831843;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.65;
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.12);
+    }
     .cute-notice {
       background: #f0fdf4;
       border: 1.5px dashed #86efac;
@@ -512,20 +524,29 @@
         </form>
       </div>
 
-      <!-- GIAO DIỆN 3: KẾT QUẢ & HIỆU ỨNG PHÁO HOA -->
+      <!-- GIAO DIỆN 3: KẾT QUẢ (ĐÃ ẨN ĐIỂM) & LỜI CHÚC + HIỆU ỨNG PHÁO HOA -->
       <div id="screen-result" style="display: none;">
         <div class="result-container">
           <div style="font-size: 52px; animation: pulseLogo 1.5s infinite;">🎉 🏆 🌟</div>
           <h2 style="color: #1e3a8a; margin-top: 10px;">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI THI!</h2>
-          <div class="result-badge-score" id="result-score">0 / 1000</div>
-          <p style="font-size: 16px; font-weight: 700; color: #475569;" id="result-time">Thời gian làm bài: 0 giây</p>
-          <p style="font-size: 14px; color: #64748b; margin-top: 4px;" id="result-ratio">Số câu trả lời đúng: 0/20 câu</p>
+
+          <!-- Ẩn kết quả điểm, thời gian và số câu đúng đối với thí sinh (vẫn giữ ID để code lưu ngầm) -->
+          <div class="result-badge-score" id="result-score" style="display: none;">0 / 1000</div>
+          <p style="font-size: 16px; font-weight: 700; color: #475569; display: none;" id="result-time">Thời gian làm bài: 0 giây</p>
+          <p style="font-size: 14px; color: #64748b; margin-top: 4px; display: none;" id="result-ratio">Số câu trả lời đúng: 0/20 câu</p>
+
+          <!-- Lời chúc dành cho thí sinh -->
+          <div class="wish-box">
+            🌸 <strong>Lời chúc từ Ban Tổ Chức:</strong><br/>
+            Cảm ơn bạn đã nhiệt tình tham gia cuộc thi chào mừng <strong>Kỷ niệm 70 năm thành lập Hội LHTN Việt Nam (15/10/1956 - 15/10/2026)</strong>! 💖<br/>
+            Chúc bạn luôn tràn đầy nhiệt huyết sức trẻ, luôn vui vẻ, hạnh phúc, may mắn và gặt hái được kết quả thật cao trong học tập nhé! 🎆✨
+          </div>
 
           <div class="cute-notice">
             🌱 <strong>Kết quả của bạn đã được ghi nhận:</strong><br/>
-            • 🌟 Dữ liệu bài thi đã được đồng bộ an toàn lên hệ thống Database trực tuyến (Bảng <code>candidates</code>).<br/>
-            • 🔒 Toàn bộ dữ liệu điểm số và xếp hạng được bảo mật tập trung cho Ban Giám Khảo.<br/>
-            • ✨ Nếu làm nhiều lần, hệ thống sẽ tự động lưu giữ thành tích cao nhất của bạn!
+            • 🌟 Chúc mừng bạn đã hoàn thành bài thi!<br/>
+            • 🌱 Bạn đã thể hiện tinh thần thi rất tốt!<br/>
+            • ✨ Chúc bạn thật nhiều may mắn và thành công trong học tập nhé! 🎓
           </div>
 
           <button onclick="window.location.reload()" class="btn btn-gradient" style="margin-top: 25px;">
@@ -689,10 +710,10 @@
     }
 
     /* =========================================================================
-       4. LOGIC CUỘC THI: 20 CÂU NGẪU NHIÊN TRONG 6 PHÚT
+       4. LOGIC CUỘC THI: 20 CÂU NGẪU NHIÊN TRONG 2 PHÚT
        ========================================================================= */
     const TOTAL_EXAM_QUESTIONS = 20;   // Chỉ lấy 20 câu ngẫu nhiên từ 64 câu
-    const POINTS_PER_QUESTION = 50;     // 50 điểm / câu -> Tổng 1000 điểm
+    const POINTS_PER_QUESTION = 50;    // 50 điểm / câu -> Tổng 1000 điểm
     const MAX_SCORE = TOTAL_EXAM_QUESTIONS * POINTS_PER_QUESTION;
 
     let currentCandidate = {};
@@ -807,7 +828,7 @@
       document.getElementById('progress-bar').style.width = `${percent}%`;
     }
 
-    // Đếm ngược 6 phút & Tự động kết thúc bài khi hết giờ
+    // Đếm ngược & Tự động kết thúc bài khi hết giờ
     function startTimer() {
       let remaining = totalTime;
       timeElapsed = 0;
@@ -827,18 +848,19 @@
 
         if (remaining <= 0) {
           clearInterval(timerInterval);
-          alert("⏰ ĐÃ HẾT THỜI GIAN LÀM BÀI (6 PHÚT)! Hệ thống tự động kết thúc bài thi của bạn.");
+          alert("⏰ ĐÃ HẾT THỜI GIAN LÀM BÀI! Hệ thống tự động kết thúc bài thi của bạn.");
           submitExam();
         }
       }, 1000);
     }
 
-    // Hiệu ứng pháo hoa chúc mừng
+    // Hiệu ứng pháo hoa chúc mừng (Giữ hiệu ứng bắn 2 bên + Thêm pháo hoa bắn vọt lên cao nổ trên bầu trời)
     function triggerConfetti() {
       if (typeof confetti !== 'function') return;
       const duration = 3.5 * 1000;
       const end = Date.now() + duration;
 
+      // 1. Giữ nguyên hiệu ứng bắn pháo giấy từ 2 bên góc
       (function frame() {
         confetti({
           particleCount: 5,
@@ -857,6 +879,42 @@
           requestAnimationFrame(frame);
         }
       }());
+
+      // 2. Thêm hiệu ứng pháo hoa bắn vọt từ dưới lên cao và nổ bung trên bầu trời
+      const highFireworksInterval = setInterval(() => {
+        if (Date.now() > end + 1500) {
+          return clearInterval(highFireworksInterval);
+        }
+
+        const launchX = 0.2 + Math.random() * 0.6;
+
+        // Tia pháo bắn vọt thẳng từ dưới đáy màn hình lên cao
+        confetti({
+          particleCount: 25,
+          angle: 90,
+          spread: 28,
+          startVelocity: 75,
+          gravity: 0.85,
+          scalar: 0.9,
+          origin: { x: launchX, y: 1 },
+          colors: ['#ffd166', '#ff70a6', '#06d6a0', '#3b82f6', '#f59e0b']
+        });
+
+        // Pháo hoa nổ bung 360 độ ở tầng cao sau khi tia pháo bay lên
+        setTimeout(() => {
+          confetti({
+            particleCount: 70,
+            spread: 360,
+            startVelocity: 38,
+            decay: 0.91,
+            gravity: 0.65,
+            ticks: 220,
+            scalar: 1.15,
+            origin: { x: launchX, y: 0.12 + Math.random() * 0.22 },
+            colors: ['#ff0a54', '#ff477e', '#ff85a1', '#ffd166', '#06d6a0', '#3b82f6', '#a855f7']
+          });
+        }, 320);
+      }, 650);
     }
 
     // Nộp bài thi
